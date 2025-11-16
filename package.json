@@ -15,6 +15,7 @@
     "@mantine/dates": "^8.3.8",
     "@mantine/form": "^8.3.8",
     "@mantine/hooks": "^8.3.8",
+    "@tabler/icons-react": "^3.35.0",
     "@tailwindcss/vite": "^4.1.17",
     "dayjs": "^1.11.19",
     "react": "^19.2.0",
