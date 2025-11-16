@@ -1,10 +1,5 @@
-import { Button } from "@mantine/core";
+import Home from "./components/home/Home";
 
 export default function App() {
-  return (
-    <div>
-      <h1 className="text-5xl font-bold font-outfit">Habit tracker</h1>
-      <Button>Manite set up</Button>
-    </div>
-  );
+  return <Home />;
 }
