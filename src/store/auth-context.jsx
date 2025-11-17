@@ -1,0 +1,129 @@
+import { jwtDecode } from "jwt-decode";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from "react";
+import api from "../api/api";
+import enpoints from "../api/enpoints";
+import { Loader } from "@mantine/core";
+
+const AuthContext = createContext({});
+
+function deriverUser(accessToken) {
+  if (!accessToken) return null;
+  const payload = jwtDecode(accessToken);
+  return {
+    id: payload.sub,
+    email: payload.email,
+    isAdmin: payload.isAdmin,
+    timeZone: payload.timeZone,
+  };
+}
+
+export function AuthProvider({ children }) {
+  const [accessToken, setAccessToken] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+  const user = deriverUser(accessToken);
+
+  const withCredentials = async (endpoint, body = {}) => {
+    const res = await api.post(endpoint, body, { withCredentials: true });
+    const token = res.data.accessToken;
+    setAccessToken(token || null);
+    return res;
+  };
+
+  const refresh = useCallback(
+    async () => withCredentials(enpoints.auth.refresh, {}),
+    []
+  );
+
+  const login = (email, password) =>
+    withCredentials(enpoints.auth.login, { email, password });
+
+  const register = (email, password) => {
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return withCredentials(enpoints.auth.register, {
+      email,
+      password,
+      timeZone,
+    });
+  };
+
+  const logout = useCallback(
+    async () => withCredentials(enpoints.auth.logout, {}),
+    []
+  );
+
+  useLayoutEffect(() => {
+    const authInterceptor = api.interceptors.request.use((config) => {
+      if (!config._retry && accessToken) {
+        config.headers.Authorization = "Bearer " + accessToken;
+      }
+      return config;
+    });
+    return () => api.interceptors.request.eject(authInterceptor);
+  }, [accessToken]);
+
+  useLayoutEffect(() => {
+    const refreshInterceptor = api.interceptors.response.use(
+      (response) => response,
+      async (err) => {
+        const originalRequest = err.config;
+
+        if (err.response.status === 401) {
+          try {
+            const response = await refresh();
+            originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+            originalRequest._retry = true;
+            return api(originalRequest);
+          } catch {}
+        }
+
+        return Promise.reject(err);
+      }
+    );
+
+    return () => api.interceptors.response.eject(refreshInterceptor);
+  }, [refresh, accessToken]);
+
+  useLayoutEffect(() => {
+    const handleRefresh = async () => {
+      try {
+        await refresh();
+      } finally {
+        setIsAuthLoading(false);
+      }
+    };
+    handleRefresh();
+  }, []);
+
+  if (isAuthLoading) {
+    return (
+      <div className="flex min-h-dvh justify-center items-center">
+        <Loader size={"xl"} />
+      </div>
+    );
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        accessToken,
+        user,
+        isAuthenticated: !!user,
+        login,
+        register,
+        logout,
+        isAuthLoading,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export const useAuth = () => useContext(AuthContext);
