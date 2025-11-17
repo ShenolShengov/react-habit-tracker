@@ -4,7 +4,7 @@ import { useAuth } from "../store/auth-context";
 import Container from "./ui/Container";
 import { Link } from "react-router";
 
-export function Header() {
+export default function Header() {
   const { isAuthenticated } = useAuth();
 
   return (

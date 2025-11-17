@@ -7,7 +7,7 @@ import { ActionIcon, Group } from "@mantine/core";
 import logo from "../assets/logo.png";
 import Container from "./ui/Container";
 
-export function Footer() {
+export default function Footer() {
   return (
     <div className="mt-32 border-t border-solid border-gray-300 ">
       <Container className="justify-between items-center py-8 @max-xs:flex-col">
