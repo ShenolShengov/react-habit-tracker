@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
-import Container from "../ui/Container";
-import Navbar from "../Navbar";
+import Container from "../components/ui/Container";
+import Navbar from "../components/navbar/Navbar";
 
 export default function DashboardLayout() {
   return (

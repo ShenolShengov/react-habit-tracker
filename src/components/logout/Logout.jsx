@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
-import { useAuth } from "../store/auth-context";
 import { useEffect } from "react";
 import { Loader } from "@mantine/core";
+import { useAuth } from "../../store/auth-context";
 
 export default function Logout() {
   const { isAuthenticated, logout } = useAuth();

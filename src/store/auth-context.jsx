@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import api from "../api/api";
-import enpoints from "../api/enpoints";
+import endpoints from "../api/endpoints";
 import { Loader } from "@mantine/core";
 
 const AuthContext = createContext({});
@@ -37,16 +37,16 @@ export function AuthProvider({ children }) {
   };
 
   const refresh = useCallback(
-    async () => withCredentials(enpoints.auth.refresh, {}),
+    async () => withCredentials(endpoints.auth.refresh, {}),
     []
   );
 
   const login = (email, password) =>
-    withCredentials(enpoints.auth.login, { email, password });
+    withCredentials(endpoints.auth.login, { email, password });
 
   const register = (email, password) => {
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    return withCredentials(enpoints.auth.register, {
+    return withCredentials(endpoints.auth.register, {
       email,
       password,
       timeZone,
@@ -54,7 +54,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = useCallback(
-    async () => withCredentials(enpoints.auth.logout, {}),
+    async () => withCredentials(endpoints.auth.logout, {}),
     []
   );
 
@@ -94,7 +94,10 @@ export function AuthProvider({ children }) {
     const handleRefresh = async () => {
       try {
         await refresh();
-      } finally {
+      } catch  {
+        console.log('No refresth token on app load');
+      }
+       finally {
         setIsAuthLoading(false);
       }
     };

@@ -9,7 +9,7 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { Center, Stack, Tooltip } from "@mantine/core";
-import logoMini from "../assets/logo-mini.png";
+import logoMini from "../../assets/logo-mini.png";
 import { NavLink } from "react-router";
 
 function NavbarLink({ Icon, label, path }) {

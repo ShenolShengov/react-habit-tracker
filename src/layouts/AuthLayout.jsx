@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import Container from "../ui/Container";
+import Container from "../components/ui/Container";
 
 export default function AuthLayout() {
   return (

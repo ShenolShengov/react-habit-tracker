@@ -1,4 +1,4 @@
-const enpoints = {
+const endpoints = {
   auth: {
     register: "/auth/register",
     login: "/auth/login",
@@ -13,4 +13,4 @@ const enpoints = {
     byId: (id) => `/habits/${id}`,
   },
 };
-export default enpoints;
+export default endpoints;

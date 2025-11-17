@@ -4,8 +4,8 @@ import {
   IconBrandYoutube,
 } from "@tabler/icons-react";
 import { ActionIcon, Group } from "@mantine/core";
-import logo from "../assets/logo.png";
-import Container from "./ui/Container";
+import logo from "../../assets/logo.png";
+import Container from "../ui/Container";
 
 export default function Footer() {
   return (

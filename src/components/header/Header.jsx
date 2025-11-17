@@ -1,8 +1,8 @@
 import { Box, Button, Group } from "@mantine/core";
-import logo from "../assets/logo.png";
-import { useAuth } from "../store/auth-context";
-import Container from "./ui/Container";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router";
+import { useAuth } from "../../store/auth-context";
+import Container from "../ui/Container";
 
 export default function Header() {
   const { isAuthenticated } = useAuth();

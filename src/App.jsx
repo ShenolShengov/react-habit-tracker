@@ -1,11 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import GuestGuard from "../guards/GuestGuard";
-import GuestLayout from "./GuestLayout";
-import Home from "../components/home/Home";
-import AuthLayout from "./AuthLayout";
-import Login from "../components/login/Login";
-import Register from "../components/register/Register";
-import AuthGuard from "../guards/AuthGuard";
+import GuestGuard from "./guards/GuestGuard";
+import GuestLayout from "./layouts/GuestLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
+import AuthGuard from "./guards/AuthGuard";
+import Home from "./components/home/Home";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Logout from "./components/logout/Logout";
 
 export default function App() {
   return (
@@ -21,7 +23,7 @@ export default function App() {
           </Route>
         </Route>
         <Route element={<AuthGuard />}>
-          <Route element={<Dashbard />}>
+          <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<>Dasboard placeholder</>} />
           </Route>
           <Route element={<AuthLayout />}>
