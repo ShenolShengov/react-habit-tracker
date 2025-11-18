@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import { useAuth } from "../store/auth-context";
+import { useAuth } from "../store/authContext";
 
 export default function GuestGuard() {
   const { isAuthenticated } = useAuth();
