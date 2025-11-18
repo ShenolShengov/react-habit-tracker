@@ -50,7 +50,7 @@ export default function Login() {
       <Title className="self-center">Welcome back!</Title>
 
       <Text className="self-center">
-        Do not have an account yet? <Anchor>Create account</Anchor>
+        Do not have an account yet? <Anchor component={Link} to="/register">Create account</Anchor>
       </Text>
 
       <Paper withBorder shadow="sm" p={22} className="mt-4!" radius="md">

@@ -50,7 +50,7 @@ export default function Register() {
       <Title className="self-center">Create your account</Title>
 
       <Text className="self-center">
-        Already have an account? <Anchor>Log in</Anchor>
+        Already have an account? <Anchor component={Link} to="/login">Log in</Anchor>
       </Text>
 
       <Paper withBorder shadow="sm" p={22} className="mt-4!" radius="md">
