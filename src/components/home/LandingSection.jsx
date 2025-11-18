@@ -27,6 +27,8 @@ export default function LandingSection() {
 
         <div className="flex gap-4 justify-center">
           <Button
+            component={Link}
+            to="/register"
             size="xl"
             className="h-14 px-10!"
             variant="gradient"

@@ -44,8 +44,7 @@ export default function Features() {
         />
       </div>
       <Button
-        component="a"
-        href="https://github.com/mantinedev/mantine"
+        component={Link} to="/login"
         size="xl"
         variant="default"
         classNames={{
