@@ -15,7 +15,7 @@ export default function App() {
       <Routes>
         <Route element={<GuestGuard />}>
           <Route element={<GuestLayout />}>
-            <Route path="/" element={<Home />} />
+            <Route index element={<Home />} />
           </Route>
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
