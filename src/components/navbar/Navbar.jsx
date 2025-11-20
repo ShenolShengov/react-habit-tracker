@@ -34,7 +34,7 @@ function NavbarLink({ Icon, label, path }) {
 const links = [
   { Icon: IconHome2, label: "Home", path: "/" },
   { Icon: IconGauge, label: "Dashboard", path: "/dashboard" },
-  { Icon: IconPlus, label: "Add habit", path: "/add-habit" },
+  { Icon: IconPlus, label: "Add habit", path: "/habits/create" },
   { Icon: IconCalendarStats, label: "Releases", path: "/releases" },
   { Icon: IconUser, label: "Account", path: "/account" },
   { Icon: IconFingerprint, label: "Security", path: "/security" },

@@ -12,7 +12,7 @@ import {
 import { zod4Resolver } from "mantine-form-zod-resolver";
 import { z } from "zod";
 import { useForm } from "@mantine/form";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../store/authContext";
 
 const schema = z.object({
@@ -50,7 +50,10 @@ export default function Register() {
       <Title className="self-center">Create your account</Title>
 
       <Text className="self-center">
-        Already have an account? <Anchor component={Link} to="/login">Log in</Anchor>
+        Already have an account?{" "}
+        <Anchor component={Link} to="/login">
+          Log in
+        </Anchor>
       </Text>
 
       <Paper withBorder shadow="sm" p={22} className="mt-4!" radius="md">

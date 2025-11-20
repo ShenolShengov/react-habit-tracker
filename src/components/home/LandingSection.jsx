@@ -1,6 +1,7 @@
 import { Button, Text } from "@mantine/core";
 import Section from "./HomeSection";
 import habitTrackerImage from "../../assets/habit-tracker.png";
+import { Link } from "react-router";
 
 export default function LandingSection() {
   return (

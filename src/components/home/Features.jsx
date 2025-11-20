@@ -6,6 +6,7 @@ import {
 import Section from "./HomeSection";
 import SectionHeader from "./SectionHeader";
 import { Button } from "@mantine/core";
+import { Link } from "react-router";
 
 function Feature({ title, description, IconType }) {
   return (
