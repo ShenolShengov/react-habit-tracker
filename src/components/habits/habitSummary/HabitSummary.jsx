@@ -1,4 +1,11 @@
-import { IconEdit, IconEye, IconFlame, IconTrash } from "@tabler/icons-react";
+import {
+  IconCircleDashedCheck,
+  IconCircleDashedPlus,
+  IconEdit,
+  IconEye,
+  IconFlame,
+  IconTrash,
+} from "@tabler/icons-react";
 import { Link } from "react-router";
 
 export default function HabitSummary({
@@ -34,13 +41,15 @@ export default function HabitSummary({
       </div>
       <div className="mt-2 flex">
         {checkedInToday ? (
-          <button className="grow py-2 text-lg! bg-gray-100 rounded-lg">
+          <Link className="grow py-2 text-lg! bg-gray-100 rounded-lg flex items-center justify-center gap-2">
+            <IconCircleDashedCheck />
             Checked in today
-          </button>
+          </Link>
         ) : (
-          <button className="grow py-2 text-lg! bg-blue-600 text-white rounded-lg">
+          <Link className="grow py-2 text-lg! bg-blue-600 text-white rounded-lg flex items-center justify-center gap-2">
+            <IconCircleDashedPlus />
             Mark today as completed
-          </button>
+          </Link>
         )}
       </div>
       <div className="flex gap-2">
