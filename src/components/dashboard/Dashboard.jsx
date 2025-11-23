@@ -23,7 +23,7 @@ export default function Dashboard() {
 
     const { content } = data;
     const progress = content.reduce((acc, cur) => {
-      acc[cur.id] = (acc[cur.id] ?? 0) + 1;
+      acc[cur.habitId] = (acc[cur.habitId] ?? 0) + 1;
       return acc;
     }, {});
     return progress;
@@ -56,7 +56,11 @@ export default function Dashboard() {
         </h1>
         <div className="grid grid-cols-2 gap-8">
           {habits.map((habit) => (
-            <HabitSummary key={habit.id} {...habit} />
+            <HabitSummary
+              key={habit.id}
+              {...habit}
+              weeklyCheckins={progress[habit.id] ?? 0}
+            />
           ))}
         </div>
       </div>

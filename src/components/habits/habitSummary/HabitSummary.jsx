@@ -16,7 +16,12 @@ export default function HabitSummary({
   createdAt,
   checkedInToday,
   currentStreak,
+  weeklyCheckins,
 }) {
+  console.log(weeklyCheckins);
+
+  const weeklyCheckinsPercent = Math.round((weeklyCheckins / 7) * 100);
+
   return (
     <div className="flex flex-col p-6 border border-gray-100 rounded-md gap-4">
       <div className="flex justify-between">
@@ -35,14 +40,22 @@ export default function HabitSummary({
       </div>
       <div className="flex items-center gap-2">
         <div className="grow bg-gray-100 rounded-full h-3">
-          <div className="bg-blue-600 w-[85%] h-3 rounded-full"></div>
+          <div
+            className={`bg-blue-600 h-3 rounded-full`}
+            style={{
+              width: `${weeklyCheckinsPercent}%`,
+            }}
+          ></div>
         </div>
-        <p>85%</p>
+        <p>{weeklyCheckinsPercent}%</p>
         <p className="px-4 py-1 rounded-3xl bg-gray-100">Current Week</p>
       </div>
       <div className="mt-2 flex">
         {checkedInToday ? (
-          <button disabled className="grow py-2 text-lg! bg-gray-100 rounded-lg flex items-center justify-center gap-2">
+          <button
+            disabled
+            className="grow py-2 text-lg! bg-gray-100 rounded-lg flex items-center justify-center gap-2"
+          >
             <IconCircleDashedCheck />
             Checked in today
           </button>
