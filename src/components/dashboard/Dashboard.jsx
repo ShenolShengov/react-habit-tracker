@@ -45,9 +45,6 @@ export default function Dashboard() {
 
   const [{ content: habits }, progress] = data;
 
-  console.log("Habits:", habits);
-  console.log("progress:", progress);
-
   return (
     <DashboardSection>
       <div className="flex flex-col gap-8">
