@@ -1,4 +1,5 @@
 import { IconEdit, IconEye, IconFlame, IconTrash } from "@tabler/icons-react";
+import { Link } from "react-router";
 
 export default function HabitSummary({
   id,
@@ -43,18 +44,27 @@ export default function HabitSummary({
         )}
       </div>
       <div className="flex gap-2">
-        <button className="grow border py-2 rounded-md border-gray-200 flex items-center justify-evenly">
+        <Link
+          to={`/habits/edit/${id}`}
+          className="grow border py-2 rounded-md border-gray-200 flex items-center justify-evenly"
+        >
           <IconEdit size={18} />
           <span>Edit</span>
-        </button>
-        <button className="grow bg-red-500 text-white py-2 rounded-md flex items-center justify-evenly">
+        </Link>
+        <Link
+          to={`/habits/edit/${id}`}
+          className="grow bg-red-500 text-white py-2 rounded-md flex items-center justify-evenly"
+        >
           <IconTrash size={18} />
           <span className="font-medium">Delete</span>
-        </button>
-        <button className="grow border py-2 rounded-md border-gray-200 flex items-center justify-evenly">
+        </Link>
+        <Link
+          to={`/habits/edit/${id}`}
+          className="grow border py-2 rounded-md border-gray-200 flex items-center justify-evenly"
+        >
           <IconEye size={18} />
           <span>View details</span>
-        </button>
+        </Link>
       </div>
     </div>
   );
