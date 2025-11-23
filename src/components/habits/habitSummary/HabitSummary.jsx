@@ -1,19 +1,27 @@
 import { IconEdit, IconEye, IconFlame, IconTrash } from "@tabler/icons-react";
 
-export default function HabitSummary() {
+export default function HabitSummary({
+  id,
+  name,
+  description,
+  createdAt,
+  checkedInToday,
+  currentStreak,
+}) {
   return (
     <div className="flex flex-col p-6 border border-gray-100 rounded-md gap-4">
       <div className="flex justify-between">
-        <h3 className="text-2xl font-medium">Morning Run</h3>
+        <h3 className="text-2xl font-medium">{name}</h3>
         <div className="flex items-center gap-2">
           <IconFlame color="blue" />
-          <p className="text-2xl text-blue-700">30</p>
+          <p className="text-2xl text-blue-700">{currentStreak}</p>
         </div>
       </div>
       <div>
         <p className="opacity-70 pr-12">
-          Go for a brisk 30-minute run every morning to boost your energy and
-          improve cardiovascular health. Remember to stretch before and after!
+          {description}
+          {/* Go for a brisk 30-minute run every morning to boost your energy and
+          improve cardiovascular health. Remember to stretch before and after! */}
         </p>
       </div>
       <div className="flex items-center gap-2">
@@ -24,10 +32,15 @@ export default function HabitSummary() {
         <p className="px-4 py-1 rounded-3xl bg-gray-100">Current Week</p>
       </div>
       <div className="mt-2 flex">
-        {/* <button className="grow py-2 text-lg! bg-gray-100 rounded-lg">Checked in today</button> */}
-        <button className="grow py-2 text-lg! bg-blue-600 text-white rounded-lg">
-          Mark today as completed
-        </button>
+        {checkedInToday ? (
+          <button className="grow py-2 text-lg! bg-gray-100 rounded-lg">
+            Checked in today
+          </button>
+        ) : (
+          <button className="grow py-2 text-lg! bg-blue-600 text-white rounded-lg">
+            Mark today as completed
+          </button>
+        )}
       </div>
       <div className="flex gap-2">
         <button className="grow border py-2 rounded-md border-gray-200 flex items-center justify-evenly">
