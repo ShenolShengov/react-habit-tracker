@@ -1,3 +1,4 @@
+import { Button } from "@mantine/core";
 import {
   IconCircleDashedCheck,
   IconCircleDashedPlus,
@@ -48,10 +49,10 @@ function CheckInAction({ checkedInToday }) {
           Checked in today
         </button>
       ) : (
-        <Link className="grow py-2 text-lg! bg-blue-600 text-white rounded-lg flex items-center justify-center gap-2">
+        <button className="grow py-2 text-lg cursor-pointer active:translate-y-0.5 active:scale-[0.98] transition bg-blue-600 text-white rounded-lg flex items-center justify-center gap-2">
           <IconCircleDashedPlus />
           Mark today as completed
-        </Link>
+        </button>
       )}
     </div>
   );
@@ -79,10 +80,12 @@ function SummaryHeader({ name, description, currentStreak }) {
     <>
       <div className="flex justify-between">
         <h3 className="text-2xl font-medium">{name}</h3>
-        <div className="flex items-center gap-2">
-          <IconFlame color="blue" />
-          <p className="text-2xl text-blue-700">{currentStreak}</p>
-        </div>
+        {currentStreak > 0 && (
+          <div className="flex items-center gap-2">
+            <IconFlame color="blue" />
+            <p className="text-2xl text-blue-700">{currentStreak}</p>
+          </div>
+        )}
       </div>
       <div>
         <p className="opacity-70 pr-12">{description}</p>
