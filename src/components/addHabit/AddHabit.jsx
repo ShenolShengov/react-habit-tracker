@@ -7,6 +7,7 @@ import api from "../../api/api";
 import enpoints from "../../api/endpoints";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
+import DashboardSection from "../ui/DashboardSection";
 
 const schema = z.object({
   name: z
@@ -52,7 +53,7 @@ export default function AddHabit() {
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-8 p-24 font-outfit">
+    <DashboardSection className="gap-8">
       <div className="flex flex-col pb-4 border-b gap-4 border-gray-400">
         <h1 className="text-3xl font-semibold">Create new habit</h1>
         <p className="opacity-70">
@@ -107,6 +108,6 @@ export default function AddHabit() {
           </Button>
         </div>
       </form>
-    </div>
+    </DashboardSection>
   );
 }
