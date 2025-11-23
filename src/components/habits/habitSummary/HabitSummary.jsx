@@ -1,3 +1,4 @@
+import { Button } from "@mantine/core";
 import {
   IconCircleDashedCheck,
   IconCircleDashedPlus,
@@ -41,10 +42,10 @@ export default function HabitSummary({
       </div>
       <div className="mt-2 flex">
         {checkedInToday ? (
-          <Link className="grow py-2 text-lg! bg-gray-100 rounded-lg flex items-center justify-center gap-2">
+          <button disabled className="grow py-2 text-lg! bg-gray-100 rounded-lg flex items-center justify-center gap-2">
             <IconCircleDashedCheck />
             Checked in today
-          </Link>
+          </button>
         ) : (
           <Link className="grow py-2 text-lg! bg-blue-600 text-white rounded-lg flex items-center justify-center gap-2">
             <IconCircleDashedPlus />
