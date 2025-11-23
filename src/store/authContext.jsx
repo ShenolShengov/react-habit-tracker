@@ -68,27 +68,28 @@ export function AuthProvider({ children }) {
     return () => api.interceptors.request.eject(authInterceptor);
   }, [accessToken]);
 
-  useLayoutEffect(() => {
-    const refreshInterceptor = api.interceptors.response.use(
-      (response) => response,
-      async (err) => {
-        const originalRequest = err.config;
+  // useLayoutEffect(() => {
+  //   const refreshInterceptor = api.interceptors.response.use(
+  //     (response) => response,
+  //     async (err) => {
+  //       const originalRequest = err.config;
 
-        if (err.response.status === 401) {
-          try {
-            const response = await refresh();
-            originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
-            originalRequest._retry = true;
-            return api(originalRequest);
-          } catch {}
-        }
+  //       if (err.response.status === 401) {
+  //         try {
+  //           const response = await refresh();
+  //           originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+  //           originalRequest._retry = true;
+  //           return api(originalRequest);
+  //         } catch {}
+  //       }
 
-        return Promise.reject(err);
-      }
-    );
+  //       return Promise.reject(err);
+  //     }
+  //   );
 
-    return () => api.interceptors.response.eject(refreshInterceptor);
-  }, [refresh, accessToken]);
+  //   return () => api.interceptors.response.eject(refreshInterceptor);
+  // }, [refresh, accessToken]);
+  //FIX
 
   useLayoutEffect(() => {
     const handleRefresh = async () => {

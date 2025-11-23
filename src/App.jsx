@@ -8,7 +8,8 @@ import AuthGuard from "./guards/AuthGuard";
 import Home from "./components/home/Home";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Logout from "./components/logout/Logout";
-import AddHabit from "./components/addHabit/AddHabit";
+import Dashboard from "./components/dashboard/Dashboard";
+import AddHabit from "./components/habits/addHabit/AddHabit";
 
 export default function App() {
   return (
@@ -25,7 +26,7 @@ export default function App() {
         </Route>
         <Route element={<AuthGuard />}>
           <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<>Dasboard placeholder</>} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/habits/create" element={<AddHabit />} />
           </Route>
           <Route element={<AuthLayout />}>

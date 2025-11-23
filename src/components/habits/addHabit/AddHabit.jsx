@@ -3,11 +3,11 @@ import { zod4Resolver } from "mantine-form-zod-resolver";
 
 import { z } from "zod";
 import { useForm } from "@mantine/form";
-import api from "../../api/api";
-import enpoints from "../../api/endpoints";
+import api from "../../../api/api";
+import enpoints from "../../../api/endpoints";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import DashboardSection from "../ui/DashboardSection";
+import DashboardSection from "../../ui/DashboardSection";
 
 const schema = z.object({
   name: z
