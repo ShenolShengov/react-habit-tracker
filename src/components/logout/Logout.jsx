@@ -9,19 +9,16 @@ export default function Logout() {
 
   useEffect(() => {
     const handleLogout = async () => {
-      if (!isAuthenticated) {
-        return;
-      }
       try {
         await logout();
+        navigate("/", {replace: true});
       } catch (e) {
         console.error(e);
-      } finally {
-        navigate("/");
+        navigate("/login", {replace: true});
       }
     };
     handleLogout();
-  }, [navigate, isAuthenticated, logout]);
+  }, [navigate, logout]);
 
   return <Loader size={"xl"} />;
 }

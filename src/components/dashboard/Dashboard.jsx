@@ -13,7 +13,7 @@ export default function Dashboard() {
     const startOfWeek = dayjs().startOf("isoWeek").toISOString();
     const today = dayjs().toISOString();
 
-    const { data } = await api.get(endpoints.checkins.base, {
+    const { data } = await api.get(endpoints.checkins.userBase, {
       params: {
         from: startOfWeek,
         to: today,

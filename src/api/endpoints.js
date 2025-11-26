@@ -13,7 +13,8 @@ const endpoints = {
     byId: (id) => `/habits/${id}`,
   },
   checkins: {
-    base: '/check-ins'
+    userBase: '/check-ins',
+    habitBase: (id) => `/habits/${id}/check-ins`
   }
 };
 export default endpoints;

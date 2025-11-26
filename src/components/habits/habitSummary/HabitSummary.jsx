@@ -7,6 +7,7 @@ import {
   IconFlame,
   IconTrash,
 } from "@tabler/icons-react";
+import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router";
 
 function ActionButtons({ id }) {
@@ -37,7 +38,14 @@ function ActionButtons({ id }) {
   );
 }
 
-function CheckInAction({ checkedInToday }) {
+function CheckInAction({ checkedInToday, id}) {
+
+  useMutation({
+    mutationFn: async () => {
+
+    }
+  })
+
   return (
     <div className="mt-2 flex">
       {checkedInToday ? (
@@ -112,7 +120,7 @@ export default function HabitSummary({
         currentStreak={currentStreak}
       />
       <WeeklyProgressBar percent={weeklyCheckinsPercent} />
-      <CheckInAction checkedInToday={checkedInToday} />
+      <CheckInAction checkedInToday={checkedInToday} id={id} />
       <ActionButtons id={id} />
     </div>
   );
