@@ -7,8 +7,10 @@ import {
   IconFlame,
   IconTrash,
 } from "@tabler/icons-react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router";
+import api from "../../../api/api";
+import endpoints from "../../../api/endpoints";
 
 function ActionButtons({ id }) {
   return (
@@ -38,13 +40,27 @@ function ActionButtons({ id }) {
   );
 }
 
-function CheckInAction({ checkedInToday, id}) {
+function CheckInAction({ checkedInToday, id }) {
+  const queryClient = useQueryClient();
 
-  useMutation({
-    mutationFn: async () => {
+  const { mutateAsync: checkIn } = useMutation({
+    mutationFn: async (id) => {
+      await api.post(endpoints.checkins.habitBase(id));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tasks"]);
+    },
+  });
 
+  const handleCheckIn = async () => {
+    console.log("Check in");
+
+    try {
+      await checkIn(id);
+    } catch {
+      console.error("Error on check in");
     }
-  })
+  };
 
   return (
     <div className="mt-2 flex">
@@ -57,7 +73,10 @@ function CheckInAction({ checkedInToday, id}) {
           Checked in today
         </button>
       ) : (
-        <button className="grow py-2 text-lg cursor-pointer active:translate-y-0.5 active:scale-[0.98] transition bg-blue-600 text-white rounded-lg flex items-center justify-center gap-2">
+        <button
+          onClick={handleCheckIn}
+          className="grow py-2 text-lg cursor-pointer active:translate-y-0.5 active:scale-[0.98] transition bg-blue-600 text-white rounded-lg flex items-center justify-center gap-2"
+        >
           <IconCircleDashedPlus />
           Mark today as completed
         </button>

@@ -20,7 +20,7 @@ export default function Dashboard() {
         size: 9999,
       },
     });
-
+    
     const { content } = data;
     const progress = content.reduce((acc, cur) => {
       acc[cur.habitId] = (acc[cur.habitId] ?? 0) + 1;
