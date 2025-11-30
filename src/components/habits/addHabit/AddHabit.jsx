@@ -5,8 +5,8 @@ import { z } from "zod";
 import { useForm } from "@mantine/form";
 import api from "../../../api/api";
 import enpoints from "../../../api/endpoints";
-import { useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import DashboardSection from "../../ui/DashboardSection";
 
 const schema = z.object({
@@ -22,6 +22,8 @@ const schema = z.object({
 });
 
 export default function AddHabit() {
+  const { id } = useParams();
+  const isEditing = !!id;
   const navigate = useNavigate();
   const form = useForm({
     initialValues: {
@@ -33,6 +35,17 @@ export default function AddHabit() {
   });
   const { errors, initialize } = form;
 
+  const { data: initalData } = useQuery({
+    queryKey: ["task", id ?? 0],
+    queryFn: async () => {
+      const res = await api.get(enpoints.habits.byId(id));
+      const { data: habit } = res;
+      initialize({ name: habit.name, description: habit.description });
+      return habit;
+    },
+    enabled: isEditing,
+  });
+
   const { mutateAsync: addHabitMutation } = useMutation({
     mutationFn: async (data) => {
       return api.post(enpoints.habits.base, {
@@ -42,10 +55,26 @@ export default function AddHabit() {
     },
   });
 
-  const handleAddHabit = async (data) => {
+  const { mutateAsync: editHabitMutation } = useMutation({
+    mutationFn: async (data) => {
+      const updatedData = Object.entries(initalData).reduce(
+        (acc, [key, value]) => {
+          if (value !== data[key]?.trim()) acc[key] = data[key]?.trim();
+          return acc;
+        },
+        {}
+      );
+      return api.patch(enpoints.habits.byId(id), updatedData);
+    },
+  });
+
+  const handleAction = async (data) => {
     try {
-      const res = await addHabitMutation(data);
-      // form.reset();
+      if (isEditing) {
+        await editHabitMutation(data);
+      } else {
+        await addHabitMutation(data);
+      }
       navigate("/dashboard");
     } catch (e) {
       form.setErrors({ name: e.response.data.message });
@@ -55,14 +84,18 @@ export default function AddHabit() {
   return (
     <DashboardSection className="gap-8">
       <div className="flex flex-col pb-4 border-b gap-4 border-gray-400">
-        <h1 className="text-3xl font-semibold">Create new habit</h1>
-        <p className="opacity-70">
-          Define your new habit to start tracking your progress.
-        </p>
+        <h1 className="text-3xl font-semibold">
+          {isEditing ? "Edit habit" : "Create new habit"}
+        </h1>
+        {!isEditing && (
+          <p className="opacity-70">
+            Define your new habit to start tracking your progress.
+          </p>
+        )}
       </div>
       <form
         className="flex flex-col gap-4"
-        onSubmit={form.onSubmit(handleAddHabit)}
+        onSubmit={form.onSubmit(handleAction)}
       >
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="font-normal">
@@ -104,7 +137,11 @@ export default function AddHabit() {
             size="md"
             className="rounded-xl!"
           >
-            {form.submitting ? "Loading..." : "Create habit"}
+            {form.submitting
+              ? "Loading..."
+              : isEditing
+              ? "Edit habit"
+              : "Create habit"}
           </Button>
         </div>
       </form>

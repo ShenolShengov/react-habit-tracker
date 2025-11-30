@@ -28,6 +28,7 @@ export default function App() {
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/habits/create" element={<AddHabit />} />
+            <Route path="/habits/edit/:id" element={<AddHabit />} />
           </Route>
           <Route element={<AuthLayout />}>
             <Route path="/logout" element={<Logout />} />
