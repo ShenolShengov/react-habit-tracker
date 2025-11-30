@@ -82,8 +82,6 @@ export default function AddHabit() {
   };
 
   const onCancel = () => {
-    console.log('Cancel');
-    
     navigate("/dashboard");
   };
 
