@@ -1,21 +1,13 @@
-import {
-  IconCalendarStats,
-  IconFingerprint,
-  IconGauge,
-  IconHome2,
-  IconLogout,
-  IconPlus,
-  IconSettings,
-  IconUser,
-} from "@tabler/icons-react";
+import { IconGauge, IconLogout, IconPlus } from "@tabler/icons-react";
 import { Center, Stack, Tooltip } from "@mantine/core";
 import logoMini from "../../assets/logo-mini.png";
 import { NavLink } from "react-router";
 
-function NavbarLink({ Icon, label, path }) {
+function NavbarLink({ Icon, label, path, ...props }) {
   return (
     <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
       <NavLink
+        {...props}
         to={path}
         className={({ isActive }) => {
           return `w-[50px] h-[50px] rounded-lg flex justify-center items-center ${
@@ -32,13 +24,8 @@ function NavbarLink({ Icon, label, path }) {
 }
 
 const links = [
-  { Icon: IconHome2, label: "Home", path: "/" },
   { Icon: IconGauge, label: "Dashboard", path: "/dashboard" },
   { Icon: IconPlus, label: "Add habit", path: "/habits/create" },
-  { Icon: IconCalendarStats, label: "Releases", path: "/releases" },
-  { Icon: IconUser, label: "Account", path: "/account" },
-  { Icon: IconFingerprint, label: "Security", path: "/security" },
-  { Icon: IconSettings, label: "Settings", path: "/settings" },
 ];
 
 export default function Navbar() {
