@@ -81,6 +81,12 @@ export default function AddHabit() {
     }
   };
 
+  const onCancel = () => {
+    console.log('Cancel');
+    
+    navigate("/dashboard");
+  };
+
   return (
     <DashboardSection className="gap-8">
       <div className="flex flex-col pb-4 border-b gap-4 border-gray-400">
@@ -127,7 +133,12 @@ export default function AddHabit() {
           )}
         </div>
         <div className="flex items-center justify-end gap-4">
-          <Button variant="outline" size="md" className="rounded-xl!">
+          <Button
+            onClick={onCancel}
+            variant="outline"
+            size="md"
+            className="rounded-xl!"
+          >
             Cancel
           </Button>
           <Button
