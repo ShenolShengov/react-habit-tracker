@@ -30,9 +30,6 @@ export default function App() {
             <Route path="/habits/create" element={<AddHabit />} />
             <Route path="/habits/edit/:id" element={<AddHabit />} />
           </Route>
-          <Route element={<AuthLayout />}>
-            <Route path="/logout" element={<Logout />} />
-          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

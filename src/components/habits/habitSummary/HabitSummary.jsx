@@ -15,7 +15,7 @@ import endpoints from "../../../api/endpoints";
 function ActionButtons({ id }) {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: deleteHabitMutation } = useMutation({
+  const { mutateAsync: deleteHabitMutation, isPending: isDeleteLoading} = useMutation({
     mutationFn: async (id) => {
       await api.delete(endpoints.habits.byId(id));
     },
@@ -41,6 +41,7 @@ function ActionButtons({ id }) {
       </Link>
       <button
         onClick={handleDelete}
+        disabled={isDeleteLoading}
         className="grow cursor-pointer bg-red-500 text-white py-2 rounded-md flex items-center justify-evenly"
       >
         <IconTrash size={18} />

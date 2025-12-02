@@ -1,7 +1,9 @@
 import { IconGauge, IconLogout, IconPlus } from "@tabler/icons-react";
 import { Center, Stack, Tooltip } from "@mantine/core";
 import logoMini from "../../assets/logo-mini.png";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "../../store/authContext";
 
 function NavbarLink({ Icon, label, path, ...props }) {
   return (
@@ -29,6 +31,19 @@ const links = [
 ];
 
 export default function Navbar() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/", { replace: true });
+    } catch (e) {
+      console.error(e);
+      navigate("/login", { replace: true });
+    }
+  };
+
   return (
     <nav className="w-20 fixed top-0 h-screen self-stretch p-4 flex flex-col border-r border-solid border-gray-300">
       <Center>
@@ -44,7 +59,16 @@ export default function Navbar() {
       </div>
 
       <Stack justify="center" gap={0}>
-        <NavbarLink Icon={IconLogout} label="Logout" path="/logout" />
+        <Tooltip
+          onClick={handleLogout}
+          label="Logout"
+          position="right"
+          transitionProps={{ duration: 0 }}
+        >
+          <div className="w-[50px] h-[50px] rounded-lg flex justify-center items-center text-gray-700 hover:bg-gray-50">
+            <IconLogout size={20} stroke={1.5} />
+          </div>
+        </Tooltip>
       </Stack>
     </nav>
   );
