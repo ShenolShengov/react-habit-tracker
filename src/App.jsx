@@ -7,7 +7,6 @@ import Register from "./components/register/Register";
 import AuthGuard from "./guards/AuthGuard";
 import Home from "./components/home/Home";
 import DashboardLayout from "./layouts/DashboardLayout";
-import Logout from "./components/logout/Logout";
 import Dashboard from "./components/dashboard/Dashboard";
 import AddHabit from "./components/habits/addHabit/AddHabit";
 

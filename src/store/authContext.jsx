@@ -53,10 +53,11 @@ export function AuthProvider({ children }) {
     });
   };
 
-  const logout = useCallback(
-    async () => withCredentials(endpoints.auth.logout, {}),
-    []
-  );
+  const logout = useCallback(async () => {
+    setIsAuthLoading(true);
+    await withCredentials(endpoints.auth.logout, {});
+    setIsAuthLoading(false);
+  }, []);
 
   useLayoutEffect(() => {
     const authInterceptor = api.interceptors.request.use((config) => {
@@ -95,10 +96,9 @@ export function AuthProvider({ children }) {
     const handleRefresh = async () => {
       try {
         await refresh();
-      } catch  {
-        console.log('No refresth token on app load');
-      }
-       finally {
+      } catch {
+        console.log("No refresth token on app load");
+      } finally {
         setIsAuthLoading(false);
       }
     };
