@@ -13,6 +13,23 @@ import api from "../../../api/api";
 import endpoints from "../../../api/endpoints";
 
 function ActionButtons({ id }) {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: deleteHabitMutation } = useMutation({
+    mutationFn: async (id) => {
+      await api.delete(endpoints.habits.byId(id));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tasks"]);
+    },
+  });
+
+  const handleDelete = async () => {
+    if (confirm("Are you sure you want to delete this habit?")) {
+      await deleteHabitMutation(id);
+    }
+  };
+
   return (
     <div className="flex gap-2">
       <Link
@@ -22,13 +39,13 @@ function ActionButtons({ id }) {
         <IconEdit size={18} />
         <span>Edit</span>
       </Link>
-      <Link
-        to={`/habits/edit/${id}`}
-        className="grow bg-red-500 text-white py-2 rounded-md flex items-center justify-evenly"
+      <button
+        onClick={handleDelete}
+        className="grow cursor-pointer bg-red-500 text-white py-2 rounded-md flex items-center justify-evenly"
       >
         <IconTrash size={18} />
         <span className="font-medium">Delete</span>
-      </Link>
+      </button>
       <Link
         to={`/habits/edit/${id}`}
         className="grow border py-2 rounded-md border-gray-200 flex items-center justify-evenly"
