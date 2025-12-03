@@ -5,6 +5,7 @@ import api from "../../api/api";
 import endpoints from "../../api/endpoints";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek.js";
+import NoHabits from "../habits/noHabits/NoHabits";
 
 export default function Dashboard() {
   const fetchProgress = async () => {
@@ -20,7 +21,7 @@ export default function Dashboard() {
         size: 9999,
       },
     });
-    
+
     const { content } = data;
     const progress = content.reduce((acc, cur) => {
       acc[cur.habitId] = (acc[cur.habitId] ?? 0) + 1;
@@ -44,6 +45,10 @@ export default function Dashboard() {
   }
 
   const [{ content: habits }, progress] = data;
+
+  if (habits && habits.length === 0) {
+    return <NoHabits />;
+  }
 
   return (
     <DashboardSection>
