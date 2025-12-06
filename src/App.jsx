@@ -10,6 +10,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./components/dashboard/Dashboard";
 import AddHabit from "./components/habits/addHabit/AddHabit";
 import HabitDetails from "./components/habits/habitDetails/HabitDetails";
+import "./config/dayjsSetup";
 
 export default function App() {
   return (

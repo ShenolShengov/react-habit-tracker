@@ -4,16 +4,12 @@ import DashboardSection from "../ui/DashboardSection";
 import api from "../../api/api";
 import endpoints from "../../api/endpoints";
 import dayjs from "dayjs";
-import isoWeek from "dayjs/plugin/isoWeek.js";
 import NoHabits from "../habits/noHabits/NoHabits";
 
 export default function Dashboard() {
   const fetchProgress = async () => {
-    dayjs.extend(isoWeek);
-
     const startOfWeek = dayjs().startOf("isoWeek").toISOString();
     const today = dayjs().toISOString();
-
     const { data } = await api.get(endpoints.checkins.userBase, {
       params: {
         from: startOfWeek,
