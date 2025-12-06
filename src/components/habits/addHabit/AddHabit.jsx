@@ -1,25 +1,13 @@
 import { Button, Input } from "@mantine/core";
 import { zod4Resolver } from "mantine-form-zod-resolver";
 
-import { z } from "zod";
 import { useForm } from "@mantine/form";
 import api from "../../../api/api";
 import enpoints from "../../../api/endpoints";
 import { useNavigate, useParams } from "react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import DashboardSection from "../../ui/DashboardSection";
-
-const schema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, "Name is reqired")
-    .max(30, "Name must be between 1 and 30 symbols"),
-  description: z
-    .string()
-    .max(2000, "Description must be between 1 and 2000 symbols")
-    .optional(),
-});
+import habitSchema from "../../../schemas/habit.schema";
 
 export default function AddHabit() {
   const { id } = useParams();
@@ -31,8 +19,9 @@ export default function AddHabit() {
       description: "",
     },
     validateInputOnChange: true,
-    validate: zod4Resolver(schema),
+    validate: zod4Resolver(habitSchema),
   });
+  
   const { errors, initialize } = form;
 
   const { data: initalData, error } = useQuery({
