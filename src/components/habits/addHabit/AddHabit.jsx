@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import DashboardSection from "../../ui/DashboardSection";
 import habitSchema from "../../../schemas/habit.schema";
+import useCreateHabit from "../../../hooks/useCreateHabit";
 
 export default function AddHabit() {
   const { id } = useParams();
@@ -21,7 +22,7 @@ export default function AddHabit() {
     validateInputOnChange: true,
     validate: zod4Resolver(habitSchema),
   });
-  
+
   const { errors, initialize } = form;
 
   const { data: initalData, error } = useQuery({
@@ -40,14 +41,7 @@ export default function AddHabit() {
     navigate("/not-found");
   }
 
-  const { mutateAsync: addHabitMutation } = useMutation({
-    mutationFn: async (data) => {
-      return api.post(enpoints.habits.base, {
-        name: data.name.trim(),
-        description: data.description.trim(),
-      });
-    },
-  });
+  const { mutateAsync: addHabitMutation } = useCreateHabit();
 
   const { mutateAsync: editHabitMutation } = useMutation({
     mutationFn: async (data) => {

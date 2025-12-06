@@ -25,6 +25,12 @@ const habitService = {
     }, {});
     return progress;
   },
+  add(data) {
+    return api.post(endpoints.habits.base, {
+      name: data.name.trim(),
+      description: data.description.trim(),
+    });
+  },
 };
 
 export default habitService;
