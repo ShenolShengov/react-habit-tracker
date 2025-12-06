@@ -1,4 +1,5 @@
 import { Calendar } from "@mantine/dates";
+import dayjs from "dayjs";
 
 export default function CheckInsHistory({ chekcIns }) {
   const markCheckins = (date) => {
@@ -19,7 +20,8 @@ export default function CheckInsHistory({ chekcIns }) {
           size="xl"
           getDayProps={markCheckins}
           onNextMonth={(d) => console.log(d)}
-          minDate="2025-01-01"
+          defaultDate={dayjs().toString()}
+          minDate={dayjs().startOf('year').toString()}
           numberOfColumns={2}
           hideOutsideDates
         />
