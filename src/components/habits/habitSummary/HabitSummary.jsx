@@ -15,14 +15,15 @@ import endpoints from "../../../api/endpoints";
 function ActionButtons({ id }) {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: deleteHabitMutation, isPending: isDeleteLoading} = useMutation({
-    mutationFn: async (id) => {
-      await api.delete(endpoints.habits.byId(id));
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["tasks"]);
-    },
-  });
+  const { mutateAsync: deleteHabitMutation, isPending: isDeleteLoading } =
+    useMutation({
+      mutationFn: async (id) => {
+        await api.delete(endpoints.habits.byId(id));
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(["tasks"]);
+      },
+    });
 
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this habit?")) {
@@ -148,7 +149,10 @@ export default function HabitSummary({
   currentStreak,
   weeklyCheckins,
 }) {
-  const weeklyCheckinsPercent = Math.round((weeklyCheckins / 7) * 100);
+  const weeklyCheckinsPercent = Math.min(
+    100,
+    Math.round((weeklyCheckins / 7) * 100)
+  );
   return (
     <div className="flex flex-col p-6 border border-gray-100 rounded-md gap-4">
       <SummaryHeader
