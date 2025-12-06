@@ -18,6 +18,7 @@ export default function HabitDetails() {
     const startOfTheYear = dayjs().tz(user.timeZone).startOf("year");
     const res = await api.get(endpoints.checkins.habitBase(id), {
       params: {
+        sort: "createdAt",
         size: 366,
         from: startOfTheYear.toISOString(),
       },
