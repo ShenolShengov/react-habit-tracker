@@ -2,14 +2,12 @@ import { Button, Input } from "@mantine/core";
 import { zod4Resolver } from "mantine-form-zod-resolver";
 
 import { useForm } from "@mantine/form";
-import api from "../../../api/api";
-import enpoints from "../../../api/endpoints";
 import { useNavigate, useParams } from "react-router";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import DashboardSection from "../../ui/DashboardSection";
 import habitSchema from "../../../schemas/habit.schema";
 import useCreateHabit from "../../../hooks/useCreateHabit";
 import useUpdateHabit from "../../../hooks/useUpdateHabit";
+import useHabit from "../../../hooks/useHabit";
 
 export default function AddHabit() {
   const { id } = useParams();
@@ -24,19 +22,19 @@ export default function AddHabit() {
     validate: zod4Resolver(habitSchema),
   });
 
-  const { errors, initialize } = form;
+  const { errors } = form;
 
-  const { data: initialData, error } = useQuery({
-    queryKey: ["task", id ?? 0],
-    queryFn: async () => {
-      const res = await api.get(enpoints.habits.byId(id));
-      const { data: habit } = res;
-      initialize({ name: habit.name, description: habit.description });
-      return habit;
-    },
+  const { data: initialData, error } = useHabit(id, {
     enabled: isEditing,
     retry: false,
   });
+
+  if (initialData && !form.initialized) {
+    form.initialize({
+      name: initialData.name,
+      description: initialData.description,
+    });
+  }
 
   if (error) {
     navigate("/not-found");

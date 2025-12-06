@@ -31,8 +31,7 @@ const habitService = {
       description: data.description.trim(),
     });
   },
-  edit({id, initialData, data}) {
-    
+  edit({ id, initialData, data }) {
     const updatedData = Object.entries(initialData).reduce(
       (acc, [key, value]) => {
         if (value !== data[key]?.trim()) acc[key] = data[key]?.trim();
@@ -41,6 +40,10 @@ const habitService = {
       {}
     );
     return api.patch(endpoints.habits.byId(id), updatedData);
+  },
+  async byId(id) {
+    const res = await api.get(endpoints.habits.byId(id));
+    return res.data;
   },
 };
 
