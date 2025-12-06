@@ -1,9 +1,10 @@
 import { BarChart } from "@mantine/charts";
+import dayjs from "dayjs";
 
 export default function MonthsCheckIns({ checkIns }) {
   const yearInfo = () => {
     const yearStats = [...checkIns].reduce((acc, c) => {
-      const month = c.format("MMM");
+      const month = dayjs(c).format("MMM");
       acc[month] = acc[month] ?? 0 + 1;
       return acc;
     }, {});

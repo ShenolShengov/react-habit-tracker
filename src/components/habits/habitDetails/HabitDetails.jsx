@@ -7,7 +7,6 @@ import dayjs from "dayjs";
 import MonthsCheckIns from "./MonthsCheckIns";
 import CheckInsHistory from "./CheckInsHistory";
 import HabitStats from "./HabitStats";
-import { Skeleton } from "@mantine/core";
 
 export default function HabitDetails() {
   const { id } = useParams();
@@ -21,10 +20,9 @@ export default function HabitDetails() {
       params: {
         size: 366,
         from: startOfTheYear.toISOString(),
-        to: today.toISOString(),
       },
     });
-    return new Set(res.data.content.map((c) => dayjs(c.createdAt)));
+    return res.data.content.map((c) => dayjs(c.createdAt).format("YYYY-MM-DD"));
   };
 
   const { data: checkIns, isLoading } = useQuery({
