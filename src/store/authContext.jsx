@@ -9,6 +9,7 @@ import {
 import api from "../api/api";
 import endpoints from "../api/endpoints";
 import { Loader } from "@mantine/core";
+import AppLoader from "../components/loader/AppLoader";
 
 const AuthContext = createContext({});
 
@@ -106,11 +107,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   if (isAuthLoading) {
-    return (
-      <div className="flex min-h-dvh justify-center items-center">
-        <Loader size={"xl"} />
-      </div>
-    );
+    return <AppLoader />;
   }
 
   return (

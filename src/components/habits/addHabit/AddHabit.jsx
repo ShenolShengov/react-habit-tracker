@@ -35,7 +35,7 @@ export default function AddHabit() {
   });
   const { errors, initialize } = form;
 
-  const { data: initalData } = useQuery({
+  const { data: initalData, error } = useQuery({
     queryKey: ["task", id ?? 0],
     queryFn: async () => {
       const res = await api.get(enpoints.habits.byId(id));
@@ -44,7 +44,12 @@ export default function AddHabit() {
       return habit;
     },
     enabled: isEditing,
+    retry: false,
   });
+
+  if (error) {
+    navigate("/not-found");
+  }
 
   const { mutateAsync: addHabitMutation } = useMutation({
     mutationFn: async (data) => {

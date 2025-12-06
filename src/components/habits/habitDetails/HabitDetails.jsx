@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import api from "../../../api/api";
 import endpoints from "../../../api/endpoints";
 import { useAuth } from "../../../store/authContext";
@@ -7,15 +7,15 @@ import dayjs from "dayjs";
 import MonthsCheckIns from "./MonthsCheckIns";
 import CheckInsHistory from "./CheckInsHistory";
 import HabitStats from "./HabitStats";
+import AppLoader from "../../loader/AppLoader";
 
 export default function HabitDetails() {
   const { id } = useParams();
   const { user } = useAuth();
-  const userTimeZone = user.timeZone;
+  const navigate = useNavigate();
 
   const fetchCheckIns = async () => {
-    const today = dayjs().tz(userTimeZone);
-    const startOfTheYear = dayjs().tz(userTimeZone).startOf("year");
+    const startOfTheYear = dayjs().tz(user.timeZone).startOf("year");
     const res = await api.get(endpoints.checkins.habitBase(id), {
       params: {
         size: 366,
@@ -25,13 +25,22 @@ export default function HabitDetails() {
     return res.data.content.map((c) => dayjs(c.createdAt).format("YYYY-MM-DD"));
   };
 
-  const { data: checkIns, isLoading } = useQuery({
+  const {
+    data: checkIns,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["habit-details", id],
     queryFn: fetchCheckIns,
+    retry: false,
   });
 
   if (isLoading) {
-    return <p>Load</p>;
+    return <AppLoader />;
+  }
+
+  if (error) {
+    return navigate("/not-found");
   }
 
   return (

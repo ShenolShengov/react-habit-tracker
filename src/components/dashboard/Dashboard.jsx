@@ -5,6 +5,7 @@ import api from "../../api/api";
 import endpoints from "../../api/endpoints";
 import dayjs from "dayjs";
 import NoHabits from "../habits/noHabits/NoHabits";
+import AppLoader from "../loader/AppLoader";
 
 export default function Dashboard() {
   const fetchProgress = async () => {
@@ -37,7 +38,7 @@ export default function Dashboard() {
   });
 
   if (isLoading) {
-    return <p>Error</p>;
+    return <AppLoader />;
   }
 
   const [{ content: habits }, progress] = data;
