@@ -9,6 +9,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import DashboardSection from "../../ui/DashboardSection";
 import habitSchema from "../../../schemas/habit.schema";
 import useCreateHabit from "../../../hooks/useCreateHabit";
+import useUpdateHabit from "../../../hooks/useUpdateHabit";
 
 export default function AddHabit() {
   const { id } = useParams();
@@ -25,7 +26,7 @@ export default function AddHabit() {
 
   const { errors, initialize } = form;
 
-  const { data: initalData, error } = useQuery({
+  const { data: initialData, error } = useQuery({
     queryKey: ["task", id ?? 0],
     queryFn: async () => {
       const res = await api.get(enpoints.habits.byId(id));
@@ -43,23 +44,12 @@ export default function AddHabit() {
 
   const { mutateAsync: addHabitMutation } = useCreateHabit();
 
-  const { mutateAsync: editHabitMutation } = useMutation({
-    mutationFn: async (data) => {
-      const updatedData = Object.entries(initalData).reduce(
-        (acc, [key, value]) => {
-          if (value !== data[key]?.trim()) acc[key] = data[key]?.trim();
-          return acc;
-        },
-        {}
-      );
-      return api.patch(enpoints.habits.byId(id), updatedData);
-    },
-  });
+  const { mutateAsync: editHabitMutation } = useUpdateHabit();
 
   const handleAction = async (data) => {
     try {
       if (isEditing) {
-        await editHabitMutation(data);
+        await editHabitMutation({ id, initialData, data });
       } else {
         await addHabitMutation(data);
       }
