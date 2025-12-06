@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import MonthsCheckIns from "./MonthsCheckIns";
 import CheckInsHistory from "./CheckInsHistory";
 import HabitStats from "./HabitStats";
+import { Skeleton } from "@mantine/core";
 
 export default function HabitDetails() {
   const { id } = useParams();
