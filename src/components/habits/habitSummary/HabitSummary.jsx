@@ -48,7 +48,7 @@ function ActionButtons({ id }) {
         <span className="font-medium">Delete</span>
       </button>
       <Link
-        to={`/habits/edit/${id}`}
+        to={`/habits/details/${id}`}
         className="grow border py-2 rounded-md border-gray-200 flex items-center justify-evenly"
       >
         <IconEye size={18} />

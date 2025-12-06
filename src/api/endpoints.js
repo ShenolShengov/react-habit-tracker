@@ -11,6 +11,7 @@ const endpoints = {
   habits: {
     base: "/habits",
     byId: (id) => `/habits/${id}`,
+    stats: (id) => `/habits/${id}/stats`
   },
   checkins: {
     userBase: '/check-ins',

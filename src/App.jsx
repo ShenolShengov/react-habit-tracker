@@ -9,6 +9,7 @@ import Home from "./components/home/Home";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./components/dashboard/Dashboard";
 import AddHabit from "./components/habits/addHabit/AddHabit";
+import HabitDetails from "./components/habits/habitDetails/HabitDetails";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/habits/create" element={<AddHabit />} />
             <Route path="/habits/edit/:id" element={<AddHabit />} />
+            <Route path="/habits/details/:id" element={<HabitDetails />} />
           </Route>
         </Route>
       </Routes>
