@@ -1,4 +1,3 @@
-import { Button } from "@mantine/core";
 import {
   IconCircleDashedCheck,
   IconCircleDashedPlus,
@@ -11,19 +10,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router";
 import api from "../../../api/api";
 import endpoints from "../../../api/endpoints";
+import useDeleteHabit from "../../../hooks/useDeleteHabit";
 
 function ActionButtons({ id }) {
-  const queryClient = useQueryClient();
-
   const { mutateAsync: deleteHabitMutation, isPending: isDeleteLoading } =
-    useMutation({
-      mutationFn: async (id) => {
-        await api.delete(endpoints.habits.byId(id));
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries(["tasks"]);
-      },
-    });
+    useDeleteHabit();
 
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this habit?")) {
@@ -144,7 +135,6 @@ export default function HabitSummary({
   id,
   name,
   description,
-  createdAt,
   checkedInToday,
   currentStreak,
   weeklyCheckins,

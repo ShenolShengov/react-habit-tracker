@@ -45,6 +45,9 @@ const habitService = {
     const res = await api.get(endpoints.habits.byId(id));
     return res.data;
   },
+  async deleteById(id) {
+    return api.delete(endpoints.habits.byId(id));
+  },
 };
 
 export default habitService;
