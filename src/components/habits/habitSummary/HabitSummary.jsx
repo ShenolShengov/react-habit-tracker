@@ -6,11 +6,9 @@ import {
   IconFlame,
   IconTrash,
 } from "@tabler/icons-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router";
-import api from "../../../api/api";
-import endpoints from "../../../api/endpoints";
-import useDeleteHabit from "../../../hooks/useDeleteHabit";
+import useDeleteHabit from "../../../hooks/habits/useDeleteHabit";
+import useCheckIn from "../../../hooks/checkIn/useCheckIn";
 
 function ActionButtons({ id }) {
   const { mutateAsync: deleteHabitMutation, isPending: isDeleteLoading } =
@@ -51,24 +49,13 @@ function ActionButtons({ id }) {
 }
 
 function CheckInAction({ checkedInToday, id }) {
-  const queryClient = useQueryClient();
-
-  const { mutateAsync: checkIn } = useMutation({
-    mutationFn: async (id) => {
-      await api.post(endpoints.checkins.habitBase(id));
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["tasks"]);
-    },
-  });
+  const { mutateAsync: checkIn } = useCheckIn();
 
   const handleCheckIn = async () => {
-    console.log("Check in");
-
     try {
       await checkIn(id);
     } catch {
-      console.error("Error on check in");
+      alert("Error occursed when try to check in. Plase try again later");
     }
   };
 

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import habitService from "../service/habitService";
+import habitService from "../../service/habitService";
 
 const HABIT_QUERY_KEY = "habit";
 

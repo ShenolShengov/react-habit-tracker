@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import habitService from "../service/habitService";
+import habitService from "../../service/habitService";
 
 const HABIT_DELETE_MUTATION_KEY = "create-habits";
 
