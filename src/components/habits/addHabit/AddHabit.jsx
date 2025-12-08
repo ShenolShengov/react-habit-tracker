@@ -5,9 +5,9 @@ import { useForm } from "@mantine/form";
 import { useNavigate, useParams } from "react-router";
 import DashboardSection from "../../ui/DashboardSection";
 import habitSchema from "../../../schemas/habit.schema";
-import useCreateHabit from "../../../hooks/useCreateHabit";
-import useUpdateHabit from "../../../hooks/useUpdateHabit";
-import useHabit from "../../../hooks/useHabit";
+import useCreateHabit from "../../../hooks/habits/useCreateHabit";
+import useUpdateHabit from "../../../hooks/habits/useUpdateHabit";
+import useHabit from "../../../hooks/habits/useHabit";
 
 export default function AddHabit() {
   const { id } = useParams();

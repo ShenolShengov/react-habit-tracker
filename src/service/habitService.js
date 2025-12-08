@@ -3,14 +3,15 @@ import api from "../api/api";
 import endpoints from "../api/endpoints";
 
 const habitService = {
-  async getAll() {
-    const res = await api.get(endpoints.habits.base);
+  async getAll({ signal }) {
+    const res = await api.get(endpoints.habits.base, { signal });
     return res.data;
   },
-  async getWeeklyProgresses() {
+  async getWeeklyProgresses({ signal }) {
     const startOfWeek = dayjs().startOf("isoWeek").toISOString();
     const today = dayjs().toISOString();
     const { data } = await api.get(endpoints.checkins.userBase, {
+      signal,
       params: {
         from: startOfWeek,
         to: today,
@@ -41,8 +42,8 @@ const habitService = {
     );
     return api.patch(endpoints.habits.byId(id), updatedData);
   },
-  async byId(id) {
-    const res = await api.get(endpoints.habits.byId(id));
+  async byId(id, { signal }) {
+    const res = await api.get(endpoints.habits.byId(id, { signal }));
     return res.data;
   },
   async deleteById(id) {

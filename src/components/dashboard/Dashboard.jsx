@@ -2,7 +2,7 @@ import HabitSummary from "../habits/habitSummary/HabitSummary";
 import DashboardSection from "../ui/DashboardSection";
 import NoHabits from "../habits/noHabits/NoHabits";
 import AppLoader from "../loader/AppLoader";
-import useHabits from "../../hooks/useHabits";
+import useHabits from "../../hooks/habits/useHabits";
 
 export default function Dashboard() {
   const { data, isLoading } = useHabits();
