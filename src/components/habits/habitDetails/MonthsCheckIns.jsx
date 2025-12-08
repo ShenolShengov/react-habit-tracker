@@ -9,8 +9,8 @@ export default function MonthsCheckIns({ checkIns }) {
       return acc;
     }, {});
 
-    return Object.entries(yearStats).map(([month, count]) => {
-      return { month, count };
+    return Object.entries(yearStats).map(([month, checkIns]) => {
+      return { month, ["Check ins"]: checkIns };
     });
   };
 
@@ -22,7 +22,7 @@ export default function MonthsCheckIns({ checkIns }) {
           h={300}
           data={yearInfo()}
           dataKey="month"
-          series={[{ name: "count", color: "blue.6" }]}
+          series={[{ name: "Check ins", color: "blue.6" }]}
           tickLine="y"
         />
       </div>
