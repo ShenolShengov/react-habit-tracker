@@ -1,16 +1,132 @@
-# React + Vite
+# React Habit Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple habit-tracking web application built with React + Vite.
 
-Currently, two official plugins are available:
+## About the project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app helps you manage daily habits — you can add, edit, and delete habits, mark habits as completed for each day, and track your progress over time. All data is stored locally (in browser storage), so you don’t need a backend.  
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📌 Requirements
 
-## Expanding the ESLint configuration
+To run this project locally, you need:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Node.js** (version 18+ recommended)  
+- **npm**
+- **Docker**  
+
+---
+
+## 🚀 Getting Started / Installation
+
+Follow the steps below to run the full project (frontend + backend).
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/ShenolShengov/react-habit-tracker.git
+cd react-habit-tracker
+```
+
+### 2️⃣ Install frontend dependencies
+
+```bash
+npm install
+```
+
+## 🐳 Backend Setup (Docker)
+
+The backend server is fully dockerized.  
+Use the provided **docker-compose.yml** to start it.
+
+### 3️⃣ Configure environment variables
+
+Create a `.env` file with required backend environment variables
+
+**Required backend environment variables:**
+
+```
+POSTGRES_USER=root
+POSTGRES_PASSWORD=root
+POSTGRES_DB=habit_tracker_db
+JWT_SECRET=your-jwt-secret
+```
+You can generate jwt secret [here](https://jwtsecrets.com/)  (at least 256 bits)
+
+### 4️⃣ Start backend server
+
+Run:
+
+```bash
+docker compose up -d
+```
+
+This will:
+
+- Build and start your backend container  
+- Expose the API on the ports defined in the compose file  
+
+To stop the backend:
+
+```bash
+docker compose down
+```
+
+If you have problem with starting backend server you can refer to the [backend repository](https://github.com/hyuseinleshov/habit-tracker-api) for more info 
+
+---
+
+## 🖥️ Frontend Development Server
+
+After starting the backend, run the frontend:
+
+```bash
+npm run dev
+```
+
+Then open:
+
+```
+http://localhost:5173
+```
+
+---
+## 🛠️ Available Scripts
+
+- `npm run dev` — start development server (hot reload)  
+- `npm run build` — build for production  
+- `npm run preview` — preview the production build  
+- `npm run lint` — format the code base
+
+## 🧩 Features
+
+- Add new habits with custom name and descrpition  
+- Mark habits as done/not done for each day  
+- Edit or delete existing habits  
+- Persist habit data locally (so it stays after reload)  
+- Simple, clean UI for easy tracking  
+
+## 📂 Project Structure (simplified)
+
+```
+react-habit-tracker/
+├── src/         # React source files
+├── public/      # Static assets, HTML template
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+## ⚡ Usage
+
+- Open the app in browser after running dev server
+- Create account or login in existing one
+- Use the “Add Habit” button to create a new habit  
+- Mark habits as done each day  
+- Edit or remove habits as needed  
+
+## 📄 License
+
+This project is open-source and free to use.  
+
