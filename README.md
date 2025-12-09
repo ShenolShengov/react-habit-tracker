@@ -38,7 +38,7 @@ npm install
 ## 🐳 Backend Setup (Docker)
 
 The backend server is fully dockerized.  
-Use the provided **docker-compose.yml** to start it.
+Use the provided **compose.yml** to start it.
 
 ### 3️⃣ Configure environment variables
 
