@@ -52,6 +52,8 @@ POSTGRES_PASSWORD=root
 POSTGRES_DB=habit_tracker_db
 JWT_SECRET=your-jwt-secret
 ```
+You can change first three env variable or use this shown in the example
+
 You can generate jwt secret [here](https://jwtsecrets.com/)  (at least 256 bits)
 
 ### 4️⃣ Start backend server
