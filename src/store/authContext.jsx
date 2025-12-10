@@ -8,7 +8,6 @@ import {
 } from "react";
 import api from "../api/api";
 import endpoints from "../api/endpoints";
-import { Loader } from "@mantine/core";
 import AppLoader from "../components/loader/AppLoader";
 
 const AuthContext = createContext({});
@@ -26,14 +25,14 @@ function deriverUser(accessToken) {
 
 export function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null);
-  const [isAuthLoading, setIsAuthLoading] = useState(true);
-
+  
+  const [isAuthLoading, setIsAuthLoading] = useState(true);  
   const user = deriverUser(accessToken);
 
   const withCredentials = async (endpoint, body = {}) => {
     const res = await api.post(endpoint, body, { withCredentials: true });
     const token = res.data.accessToken;
-    setAccessToken(token || null);
+    setAccessToken(token || null);    
     return res;
   };
 
@@ -62,7 +61,7 @@ export function AuthProvider({ children }) {
 
   useLayoutEffect(() => {
     const authInterceptor = api.interceptors.request.use((config) => {
-      if (!config._retry && accessToken) {
+      if (!config.retryRefresh && accessToken) {
         config.headers.Authorization = "Bearer " + accessToken;
       }
       return config;
@@ -70,28 +69,29 @@ export function AuthProvider({ children }) {
     return () => api.interceptors.request.eject(authInterceptor);
   }, [accessToken]);
 
-  // useLayoutEffect(() => {
-  //   const refreshInterceptor = api.interceptors.response.use(
-  //     (response) => response,
-  //     async (err) => {
-  //       const originalRequest = err.config;
+  useLayoutEffect(() => {
+    const refreshInterceptor = api.interceptors.response.use(
+      (response) => response,
+      async (err) => {
+        const originalRequest = err.config;
 
-  //       if (err.response.status === 401) {
-  //         try {
-  //           const response = await refresh();
-  //           originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
-  //           originalRequest._retry = true;
-  //           return api(originalRequest);
-  //         } catch {}
-  //       }
+        if (err.response?.status === 401 && !originalRequest.retryRefresh) {
+          originalRequest.retryRefresh = true;
+          try {
+            const response = await refresh();
+            originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+            return api(originalRequest);
+          } catch(e) {
+            return Promise.reject(e);
+          }
+        }
 
-  //       return Promise.reject(err);
-  //     }
-  //   );
+        return Promise.reject(err);
+      }
+    );
 
-  //   return () => api.interceptors.response.eject(refreshInterceptor);
-  // }, [refresh, accessToken]);
-  //FIX
+    return () => api.interceptors.response.eject(refreshInterceptor);
+  }, [refresh, accessToken]);
 
   useLayoutEffect(() => {
     const handleRefresh = async () => {
