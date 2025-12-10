@@ -40,6 +40,12 @@ npm install
 The backend server is fully dockerized.  
 Use the provided **compose.yml** to start it.
 
+#### If you are on Mac add this configuration to app service in **compse.yml**:
+
+```bash
+platform: linux/arm64
+```
+
 ### 3️⃣ Configure environment variables
 
 Create a `.env` file with required backend environment variables
@@ -63,6 +69,7 @@ Run:
 ```bash
 docker compose up -d
 ```
+
 
 This will:
 
