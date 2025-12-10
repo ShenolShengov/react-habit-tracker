@@ -40,7 +40,7 @@ npm install
 The backend server is fully dockerized.  
 Use the provided **compose.yml** to start it.
 
-#### If you are on Mac add this configuration to app service in **compse.yml**:
+#### If you are on Mac and have problems running backend try to add this configuration to app service in **compse.yml**:
 
 ```bash
 platform: linux/arm64
