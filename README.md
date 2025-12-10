@@ -45,6 +45,11 @@ Use the provided **compose.yml** to start it.
 ```bash
 platform: linux/arm64
 ```
+or pull backend image with this command:
+
+```bash
+docker pull --platform=linux/amd64 shenol10/habit-tracker-api-app:1.0.0
+```
 
 ### 3️⃣ Configure environment variables
 
